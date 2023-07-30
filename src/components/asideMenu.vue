@@ -2,10 +2,16 @@
   <div class="aside-menu">
 		<div class="wraps">
 			<label>
-				縣市：<select><option>台北市</option></select>
+				縣市：
+				<select v-model="currCity">
+					<option v-for="item in cityList" :key="item">{{ item }}</option>
+				</select>
 			</label>
 			<label>
-				行政區：<select><option>北投區</option></select>
+				行政區：
+				<select v-model="currDistrict">
+					<option v-for="item in districtList" :key="item.id">{{ item.name }}</option>
+				</select>
 			</label>
 		</div>
 
@@ -87,6 +93,47 @@
 	</div>
 </template>
 
-<script setup>
+<script>
+import { useStore } from 'vuex'
+import { computed, watch } from 'vue';
 
+export default {
+  setup() {
+    const store = useStore();
+    const currCity = computed({
+      get: () => {
+				console.log(store.state.currCity);
+				console.log(store.state.location);
+        return store.state.currCity
+      },
+      set: (value) => {
+        store.commit('SET_CURR_CITY', value)
+      }
+    });
+    const currDistrict = computed({
+      get: () => {
+        return store.state.currDistrict
+      },
+      set: (value) => {
+        store.commit('SET_CURR_DISTRICT', value)
+      }
+    });
+
+		const cityList = computed(() => store.getters.cityList);
+		const districtList = computed(() => store.getters.districtList);
+
+		watch(districtList, (v) => {
+			const [arr] = v;
+			console.log(arr.name);
+			currDistrict.value = arr.name;
+		})
+
+    return {
+      currCity,
+      currDistrict,
+			cityList,
+			districtList
+    }
+  }
+}
 </script>
