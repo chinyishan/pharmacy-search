@@ -1,92 +1,97 @@
 <template>
-  <div class="aside-menu">
-		<div class="wraps">
-			<label>
-				縣市：
-				<select v-model="currCity">
-					<option v-for="item in cityList" :key="item">{{ item }}</option>
-				</select>
-			</label>
-			<label>
-				行政區：
-				<select v-model="currDistrict">
-					<option v-for="item in districtList" :key="item.id">{{ item.name }}</option>
-				</select>
-			</label>
+  <div class="aside_menu">
+		<div class="pharmacy_title">
+			<h1>
+				<svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+					<path fill="#ffffff" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6z"/>
+				</svg>
+				查詢查詢
+			</h1>
 		</div>
-
-		<div class="wraps">
-			<label>
-				<i class="fas fa-search-location"></i> 關鍵字搜尋：
+		<div class="container">
+			<div class="wraps wrap_select">
+				<div class="curr">
+					<label>縣市</label>
+					<select v-model="currCity">
+						<option v-for="item in cityList" :key="item">{{ item }}</option>
+					</select>
+				</div>
+				<div class="curr">
+					<label>行政區</label>
+					<select v-model="currDistrict">
+						<option v-for="item in districtList" :key="item.id">{{ item.name }}</option>
+					</select>
+				</div>
+			</div>
+			<div class="wraps wrap_search">
+				<label>
+					<svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#4d4d4d" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"/>
+					</svg>
+					關鍵字搜尋
+				</label>
 				<input type="text" placeholder="請輸入關鍵字">
-			</label>
+			</div>
 		</div>
-
 		<ul class="store-lists">
 			<li class="store-info wraps">
-				<h1>ＸＸ藥局</h1>
-
+				<h2>標題標題</h2>
 				<div class="mask-info">
-					<i class="fas fa-head-side-mask"></i>
-					<span>大人口罩: 100 個</span>
+					<span>小標題一：</span>
+					<span>100 個</span>
 				</div>
-
 				<div class="mask-info">
-					<i class="fas fa-baby"></i>
-					<span>兒童口罩: 100 個</span>
+					<span>小標題二：</span>
+					<span>100 個</span>
 				</div>
-
 				<div class="mask-info">
-					最後更新時間:
+					最後更新時間：
 				</div>
-
 				<button class="btn-store-detail">
-					<i class="fas fa-info-circle"></i>
-					看詳細資訊
+					<svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#ffffff" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+					</svg>
+					詳細資訊
 				</button>
 			</li>
 			<li class="store-info wraps">
-				<h1>ＸＸ藥局</h1>
-
+				<h2>標題標題</h2>
 				<div class="mask-info">
 					<i class="fas fa-head-side-mask"></i>
-					<span>大人口罩: 100 個</span>
+					<span>小標題一:</span>
 				</div>
-
 				<div class="mask-info">
 					<i class="fas fa-baby"></i>
-					<span>兒童口罩: 100 個</span>
+					<span>小標題二:</span>
 				</div>
-
 				<div class="mask-info">
 					最後更新時間:
 				</div>
-
 				<button class="btn-store-detail">
-					<i class="fas fa-info-circle"></i>
-					看詳細資訊
+					<svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#ffffff" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+					</svg>
+					詳細資訊
 				</button>
 			</li>
 			<li class="store-info wraps">
-				<h1>ＸＸ藥局</h1>
-
+				<h2>標題標題</h2>
 				<div class="mask-info">
 					<i class="fas fa-head-side-mask"></i>
-					<span>大人口罩: 100 個</span>
+					<span>小標題一:</span>
 				</div>
-
 				<div class="mask-info">
 					<i class="fas fa-baby"></i>
-					<span>兒童口罩: 100 個</span>
+					<span>小標題二:</span>
 				</div>
-
 				<div class="mask-info">
 					最後更新時間:
 				</div>
-
 				<button class="btn-store-detail">
-					<i class="fas fa-info-circle"></i>
-					看詳細資訊
+					<svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path fill="#ffffff" d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
+					</svg>
+					詳細資訊
 				</button>
 			</li>
 		</ul>
