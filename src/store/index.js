@@ -11,6 +11,8 @@ export default createStore({
     location: [],
     // 存放 API 回傳的藥局資訊
     stores: [],
+    // 關鍵字
+    keywords: ''
   },
 	// 透過 mutations 操作 state
   mutations: {
@@ -26,13 +28,16 @@ export default createStore({
     SET_STORES (state, stores) {
       state.stores = stores
     },
+    SET_KEYWORDS (state, keywords) {
+      state.keywords = keywords
+    },
   },
 	actions: {
 		// // 取得縣市區域資料
 		async fetchLocations({ commit }) {
 			const json = await fetch('https://raw.githubusercontent.com/kurotanshi/mask-map/master/raw/area-location.json')
 			.then((res) => res.json());
-      console.log(json, 'json');
+      // console.log(json, 'json');
 			// 透過 commit 操作 mutations
 			commit('SET_AREA_LOCATION', json)
 		},
@@ -45,10 +50,10 @@ export default createStore({
 			});
 
 			// 整理格式，拆出經緯度
-			const data = json.features.map((item) => ({
-				...item.properties,
-				latitude: item.geometry.coordinates[0],
-				longitude: item.geometry.coordinates[1]
+			const data = json.features.map((i) => ({
+				...i.properties,
+				latitude: i.geometry.coordinates[0],
+				longitude: i.geometry.coordinates[1]
 			}))
 			commit('SET_STORES', data)
 		}
@@ -56,12 +61,21 @@ export default createStore({
   getters: {
     // 縣市
     cityList(state) {
-      return state.location.map((item) => item.name);
+      return state.location.map((i) => i.name);
     },
     // 區域，用 optional chaining 處理預設值 undefined
     districtList(state) {
-      console.log(state.location, 'state.location');
-      return state.location.find((item) => item.name === state.currCity)?.districts || [];
+      return state.location.find((i) => i.name === state.currCity)?.districts || [];
+    },
+    //藥局縣市區篩選，比對是否有一樣的縣市區
+    filteredStores(state) {
+      const { stores } = state;
+      return state.keywords 
+      ? stores.filter((i) => i.name.includes(state.keywords)) 
+      : stores.filter((i) => i.county === state.currCity && i.town === state.currDistrict);
+    },
+    currDistrictInfo(state, getters) {
+      return getters.districtList.find((i) => i.name === state.currDistrict) || {};
     }
   }
 })

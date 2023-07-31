@@ -3,7 +3,7 @@
     <!-- 左側欄 -->
     <asideMenu/>
     <!-- 地圖區塊 -->
-    <!-- <maskMap/> -->
+    <maskMap/>
   </div>
 </template>
 
