@@ -21,10 +21,6 @@ onMounted(() => {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 		maxZoom: 18,
   }).addTo(mapMap.value);
-	// L.marker([22.595153, 120.306923])
-	// 	.addTo(map)
-	// 	.bindPopup("夢時代購物中心")
-	// 	.openPopup();
 });
 
 const currDistrictInfo = computed(() => store.getters.currDistrictInfo);

@@ -12,7 +12,11 @@ export default createStore({
     // 存放 API 回傳的藥局資訊
     stores: [],
     // 關鍵字
-    keywords: ''
+    keywords: '',
+    // 燈箱
+    showModal: false,
+    // 對應藥局ID
+    infoBoxSid: null, 
   },
 	// 透過 mutations 操作 state
   mutations: {
@@ -30,6 +34,12 @@ export default createStore({
     },
     SET_KEYWORDS (state, keywords) {
       state.keywords = keywords
+    },
+    SET_SHOW_MODAL (state, showModal) {
+      state.showModal = showModal
+    },
+    SET_INFO_BOX_SID (state, infoBoxTd) {
+      state.infoBoxTd = infoBoxTd
     },
   },
 	actions: {
