@@ -13,7 +13,7 @@ export default createStore({
     stores: [],
     // 關鍵字
     keywords: '',
-    // 燈箱
+    // 燈箱，預設 false
     showModal: false,
     // 對應藥局ID
     infoBoxSid: null, 
@@ -38,12 +38,12 @@ export default createStore({
     SET_SHOW_MODAL (state, showModal) {
       state.showModal = showModal
     },
-    SET_INFO_BOX_SID (state, infoBoxTd) {
-      state.infoBoxTd = infoBoxTd
+    SET_INFO_BOX_SID (state, infoBoxSid) {
+      state.infoBoxSid = infoBoxSid
     },
   },
 	actions: {
-		// // 取得縣市區域資料
+		// 取得縣市區域資料
 		async fetchLocations({ commit }) {
 			const json = await fetch('https://raw.githubusercontent.com/kurotanshi/mask-map/master/raw/area-location.json')
 			.then((res) => res.json());

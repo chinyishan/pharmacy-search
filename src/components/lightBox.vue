@@ -1,63 +1,63 @@
 <template>
-  <transition>
-    <div class="mark-mask" v-show="showModal">
+  <transition name="model">
+    <div class="modal-mask" v-show="showModal">
       <div class="modal-wrapper" @click.self="close">
+        
         <div class="modal-container">
           <div class="modal-body">
-  <h1 class="store-name">藥局名稱</h1>
-  <hr>
-  <h2 class="title">營業時間</h2>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>ㄧ</th>
-        <th>二</th>
-        <th>三</th>
-        <th>四</th>
-        <th>五</th>
-        <th>六</th>
-        <th>日</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th>早上</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th>中午</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th>晚上</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2 class="title">地址 XXXXXXX</h2>
-  <h2 class="title">電話 XXXXXXX</h2>
-  <h2 class="title">備註 XXXXXXX</h2>
-</div>
+            <h1 class="store-name">{{ currStore?.name }}</h1>
+            <hr>
+            <h2 class="title">營業時間</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>一</th>
+                  <th>二</th>
+                  <th>三</th>
+                  <th>四</th>
+                  <th>五</th>
+                  <th>六</th>
+                  <th>日</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>早上</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>中午</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>晚上</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <h2 class="title">地址 {{ currStore?.address }}</h2>
+            <h2 class="title">電話 {{ currStore?.phone }}</h2>
+            <h2 class="title">備註 {{ currStore?.custom_note }}</h2>
+          </div>
         </div>      
       </div>
     </div>
@@ -79,9 +79,10 @@ const showModal = computed({
   }
 });
 const close = () => {
-  showModal = false
+  showModal.value = false
 }
 
+// 點擊的藥局詳細資料
 const infoBoxSid = computed({
   get: () => {
     return store.state.infoBoxSid
@@ -91,26 +92,31 @@ const infoBoxSid = computed({
   }
 })
 const currStore = computed(() => {
-  return store.state.stores.filter((i) => i.id === infoBoxSid)[0]
+  return store.state.stores.filter((i) => i.id === infoBoxSid.value)[0]
 })
+
+const servicePeriods = () => {
+
+}
 
 </script>
 
 <style scoped lang="scss">
 .modal-mask {
   position: fixed;
-  z-index: 100;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .65);
+  background-color: rgba(0, 0, 0, .6);
   display: table;
   transition: opacity .3s ease;
 }
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  cursor: pointer;
 }
 .modal-container {
   width: 520px;
@@ -161,6 +167,7 @@ table {
 th{
   background-color: #42b983;
   color: #fff;
+  font-weight: 900;
 }
 td, th{
   padding: .3em;
