@@ -35,7 +35,7 @@
         padding: 15px;
         font-size: 26px;
         font-weight: 900;
-        background-image: linear-gradient(135deg, #3ca6f6 0%, #3ca6f6 20%, #7CE8E1 100%);
+        background-image: linear-gradient(135deg, #1f8bde 0%, #1f8bde 20%, #50ebff 100%);
         color: #fff;
     }
     .container {
@@ -134,7 +134,7 @@
         margin-bottom: 5px;
 
         .highlight {
-            color: #002aff;
+            color: #1f8bde;
         }
     }
     .mask-info{
@@ -176,8 +176,7 @@
         border-radius: 5px;
         border: 0px solid #aaa;
         color: #fff;
-        background-image: linear-gradient(to right, #3ca6f6 0%, #3ca6f6 30%, #7CE8E1 100%);
-        display: flex;
+        background-image: linear-gradient(135deg, #1f8bde 0%, #1f8bde 20%, #50ebff 100%);
         justify-content: center;
         align-items: center;
 

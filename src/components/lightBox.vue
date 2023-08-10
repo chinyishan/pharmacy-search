@@ -135,9 +135,11 @@ const servicePeriods = computed(() => {
           border-radius: 3px;
           width: 100%;
           margin-bottom: 1rem;
+          border: 1px solid #1f8bde;
+          color: #1f8bde;
         }
         th{
-          background-color: #3b54d4;
+          background-color: #1f8bde;
           color: #fff;
           font-weight: 900;
         }
@@ -145,6 +147,7 @@ const servicePeriods = computed(() => {
           padding: .3em;
           text-align: center;
           line-height: 1.5rem;
+          border: 1px solid #1f8bde;
         }
       }
     }
