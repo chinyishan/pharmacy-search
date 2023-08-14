@@ -76,6 +76,7 @@ const clearMarkers = () => {
 const triggerPopup = (markerId) => {
 	// 找出目標藥局
 	const marker = markers.find((i) => i.markerId === markerId);
+	console.log(triggerPopup);
 	// 地圖中心指向目標，開啟popup
 	mapMap.value.flyTo(new L.LatLng(marker.lng, marker.lat), 15);
 	marker.openPopup();
@@ -84,14 +85,17 @@ const triggerPopup = (markerId) => {
 
 <style lang="scss">
 .mask-map {
-    position: relative;
+	position: relative;
+    top: 0;
+    right: -25%;
     width: 75%;
     height: 100%;
     background-color: #aaa;
-    z-index: 10;
+    z-index: 5;
 
     &.full {
-        width: 100%;
+      width: 100%;
+			right: 0%;
     }
 }
 </style>

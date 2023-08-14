@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 左側欄 -->
     <!-- @triggerMarker="openPopup" -->
-    <asideMenu ref="menu"/>
+    <asideMenu @triggerMarker="openPopup" ref="menu"/>
     <!-- 地圖區塊 -->
     <maskMap ref="mep"/>
     <!-- 燈箱 -->
@@ -15,7 +15,7 @@ import asideMenu from './components/asideMenu.vue';
 import maskMap from './components/maskMap.vue';
 import lightBox from './components/lightBox.vue';
 import { useStore } from 'vuex'
-import { computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 export default {
   components: {
@@ -36,6 +36,13 @@ export default {
       }
     })
 
+    const map = ref(null)
+
+    const openPopup = (id) => {
+      map.value.triggerPopup(id)
+      console.log(map.value);
+    }
+
     const currCity = computed( {
       get: () => {
         return store.state.currCity
@@ -55,8 +62,10 @@ export default {
     })
 
     return {
+      map,
+      openPopup,
       currCity,
-      currDistrict
+      currDistrict,
     }
   }
 }

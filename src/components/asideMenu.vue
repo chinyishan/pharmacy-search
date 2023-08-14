@@ -1,5 +1,5 @@
 <template>
-	<div class="aside_container">
+	<div class="aside_container" :class="{ active: isActive }">
 		<div class="aside_menu">
 			<div class="pharmacy_title">
 				<h1>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<ul class="store-lists">
-				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id">
+				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id" @click="$emit('triggerMarker', item.id)">
 					<h2 v-html="keywordsHighlight(item.name)"></h2>
 					<div class="mask-info">
 						<i class="fas fa-head-side-mask"></i>
@@ -57,7 +57,7 @@
 				</li>
 			</ul>
 		</div>
-		<span class="menu-btn">
+		<span class="menu-btn" @click="toggleMenu">
 			<svg width="14" height="14" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 				<path fill="#6b7280" fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8L4.646 2.354a.5.5 0 0 1 0-.708z"/>
 			</svg>
@@ -67,7 +67,7 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const store = useStore();
 
@@ -132,18 +132,37 @@ const openInfoBox = (id) => {
 	showModal.value = true
 	infoBoxSid.value = id
 }
+
+const isActive = ref(false);
+
+const closeMenu = computed(() => {
+	return isActive.value ? false : true;
+});
+
+const toggleMenu = () => {
+	isActive.value = closeMenu.value;
+};
 </script>
 
 <style lang="scss" scoped>
 .aside_container {
-	position: relative;
+	position: fixed;
 	z-index: 10;
+	top: 0%;
+	left: 0%;
 	width: 25%;
 	height: 100%;
 	background-color: #fff;
+	transition: all 1s ease-out;
+
+	&.active {
+		left: -25%;
+		transition: all 1s ease-out;
+	}
 	.aside_menu {
-		overflow-y: scroll;
 		box-shadow: 5px 0 5px rgb(50, 50, 50, .5);
+		height: 100%;
+		overflow-y: scroll;
 	
 		.pharmacy_title {
 			padding: 15px;
@@ -187,24 +206,7 @@ const openInfoBox = (id) => {
 								padding: 6px 20px 6px 8px;
 								border-radius: 5px;
 								border: 1px solid #cccccc;
-								// -webkit-appearance: none;
-								// -moz-appearance: none;
 								// appearance: none;
-	
-								// &::after {
-								//     content: "\f00c";
-								//     display: block;
-								//     position: absolute;
-								//     width: 20px;
-								//     height: 20px;
-								//     right: 10px;
-								//     top: 0%;
-								//     padding: 5px;
-								//     box-sizing: border-box;
-								//     pointer-events: none;
-								//     z-index: 10;
-								//     background: url("./images/chevron-down.svg") no-repeat right center transparent;
-								// }
 						}
 						input {
 								padding: 5px 20px 5px 8px;
@@ -268,8 +270,8 @@ const openInfoBox = (id) => {
 					text-align: center;
 					line-height: 1;
 					padding: 10px;
-					right: 5%;
-					bottom: 12%;
+					right: 6%;
+					bottom: 30%;
 					transform: translate(0%, 0%);
 					border-radius: 5px;
 					color: #fff;
