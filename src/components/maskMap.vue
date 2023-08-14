@@ -39,16 +39,18 @@ watch(filteredStores, (stores) => {
 
 const addMarker = (item) => {
 	// 標記圖示
-	const ICON = {
-		iconUrl: '/assets/images/geo-alt-fill.png',
-		iconSize: [200, 400],
-		iconAnchor: [12, 41],
-		popupAnchor: [1, -34],
-		shadowSize: [41, 41]
-	}
+	const ICON = L.icon({
+		iconUrl: '/src/assets/images/geo-alt-fill-2.png',
+		shadowUrl: '/src/assets/images/geo-shadow.png',
+    iconSize:     [40, 40],
+    shadowSize:   [40, 40],
+    iconAnchor:   [22, 94],
+    shadowAnchor: [10, 90], 
+    popupAnchor:  [-3, -76]
+	})
 
 	// 將標記放置地圖上
-	const marker = L.marker([item.longitude, item.latitude], ICON)
+	const marker = L.marker([item.longitude, item.latitude], {icon: ICON})
 	.addTo(mapMap.value)
 	.bindPopup(`<h2 class="popup-name">${item.name}</h2>`)
 	.openPopup()
@@ -79,3 +81,17 @@ const triggerPopup = (markerId) => {
 	marker.openPopup();
 }
 </script>
+
+<style lang="scss">
+.mask-map {
+    position: relative;
+    width: 75%;
+    height: 100%;
+    background-color: #aaa;
+    z-index: 10;
+
+    &.full {
+        width: 100%;
+    }
+}
+</style>
