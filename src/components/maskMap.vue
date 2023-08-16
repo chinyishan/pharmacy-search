@@ -1,6 +1,5 @@
 <template>
-  <div class="mask-map" id="mapMap" ref="mapMap"></div>
-	<!-- ref="mapContainer" -->
+  <div class="mask-map" id="mapMap" ref="map"></div>
 </template>
 
 <script setup>
@@ -9,18 +8,18 @@ import { ref, onMounted, computed, watch } from 'vue';
 import L from 'leaflet';
 
 const store = useStore();
-const mapMap  = ref(null);
+const map  = ref(null);
 const markers = ref([]);
 
 onMounted(() => {
-	mapMap.value = L.map( mapMap.value , {
+	map.value = L.map( map.value , {
 		center: [25.03, 121.55],
 		zoom: 14,
 	});
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 		maxZoom: 18,
-  }).addTo(mapMap.value);
+  }).addTo(map.value);
 });
 
 const currDistrictInfo = computed(() => store.getters.currDistrictInfo);
@@ -28,7 +27,7 @@ const filteredStores = computed(() => store.getters.filteredStores);
 
 watch(currDistrictInfo, (dis) => {
 	// 切換行政區地圖中心點
-	mapMap.value.panTo(new L.LatLng(dis.latitude, dis.longitude))
+	map.value.panTo(new L.LatLng(dis.latitude, dis.longitude))
 });
 watch(filteredStores, (stores) => {
 	// 先清除原有 marker
@@ -51,7 +50,7 @@ const addMarker = (item) => {
 
 	// 將標記放置地圖上
 	const marker = L.marker([item.longitude, item.latitude], {icon: ICON})
-	.addTo(mapMap.value)
+	.addTo(map.value)
 	.bindPopup(`<h2 class="popup-name">${item.name}</h2>`)
 	.openPopup()
 
@@ -61,24 +60,26 @@ const addMarker = (item) => {
 	marker.lat = item.latitude
 
 	markers.value.push(marker)
+	console.log(markers.value);
 }
 
 // 清除地圖標記
 const clearMarkers = () => {
-	mapMap.value.eachLayer((layer) => {
+	map.value.eachLayer((layer) => {
 		if(layer instanceof L.Marker) {
-			mapMap.value.removeLayer(layer)
+			map.value.removeLayer(layer)
 		}
 	})
 	markers.value.length = 0
 }
 
+// null 沒有使用到 triggerPopup
 const triggerPopup = (markerId) => {
 	// 找出目標藥局
-	const marker = markers.find((i) => i.markerId === markerId);
-	console.log(triggerPopup);
+	const marker = markers.value.find((i) => i.markerId === markerId);
+	console.log(marker);
 	// 地圖中心指向目標，開啟popup
-	mapMap.value.flyTo(new L.LatLng(marker.lng, marker.lat), 15);
+	map.value.flyTo(new L.LatLng(marker.lng, marker.lat), 15);
 	marker.openPopup();
 }
 </script>

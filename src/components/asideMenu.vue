@@ -35,7 +35,8 @@
 				</div>
 			</div>
 			<ul class="store-lists">
-				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id" @click="$emit('triggerMarker', item.id)">
+				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id" @click="handleMarker">
+					{{ item.id }}
 					<h2 v-html="keywordsHighlight(item.name)"></h2>
 					<div class="mask-info">
 						<i class="fas fa-head-side-mask"></i>
@@ -70,6 +71,11 @@ import { useStore } from 'vuex'
 import { ref, computed, watch } from 'vue';
 
 const store = useStore();
+//定義emit跟props的變數
+const emit = defineEmits(['triggerMarkerPopup'])
+// const props = defineProps({
+// 		foo: String
+// })
 
 // 選擇縣市區域
 const currCity = computed({
@@ -133,14 +139,18 @@ const openInfoBox = (id) => {
 	infoBoxSid.value = id
 }
 
+//
+const handleMarker = () => {
+	filteredStores.value.forEach((i) => {
+		console.log(i.id);
+		emit("triggerMarkerPopup", i.id)
+	})
+}
+
+//選單開關
 const isActive = ref(false);
-
-const closeMenu = computed(() => {
-	return isActive.value ? false : true;
-});
-
 const toggleMenu = () => {
-	isActive.value = closeMenu.value;
+	isActive.value = !isActive.value;
 };
 </script>
 
@@ -153,11 +163,11 @@ const toggleMenu = () => {
 	width: 25%;
 	height: 100%;
 	background-color: #fff;
-	transition: all 1s ease-out;
+	transition: all .5s ease-out;
 
 	&.active {
 		left: -25%;
-		transition: all 1s ease-out;
+		transition: all .5s ease-out;
 	}
 	.aside_menu {
 		box-shadow: 5px 0 5px rgb(50, 50, 50, .5);
@@ -263,8 +273,6 @@ const toggleMenu = () => {
 					position: absolute;
 					display: block;
 					cursor: pointer;
-					// width: 80px;
-					// height: 80px;
 					font-size: 14px;
 					font-weight: 900;
 					text-align: center;

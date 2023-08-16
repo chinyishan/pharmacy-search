@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 左側欄 -->
     <!-- @triggerMarker="openPopup" -->
-    <asideMenu @triggerMarker="openPopup" ref="menu"/>
+    <asideMenu @triggerMarkerPopup="openPopup" ref="menu"/>
     <!-- 地圖區塊 -->
     <maskMap ref="mep"/>
     <!-- 燈箱 -->
@@ -27,20 +27,24 @@ export default {
     const store = useStore();
 
     onMounted( async () => {
+      console.log(map.value);
+      console.log(menu.value);
       try {
         await store.dispatch('fetchLocations');
         await store.dispatch('fetchPharmacies');
-        // console.log(store.state);
       } catch (error) {
         console.error(error);
       }
     })
 
     const map = ref(null)
+    const menu = ref(null)
 
-    const openPopup = (id) => {
-      map.value.triggerPopup(id)
+    //錯誤，triggerPopup無法傳遞
+    const openPopup = (markerId) => {
+      menu.value.triggerPopup(markerId)
       console.log(map.value);
+      console.log(markerId);
     }
 
     const currCity = computed( {
@@ -69,7 +73,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss">
