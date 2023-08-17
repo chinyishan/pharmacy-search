@@ -1,5 +1,5 @@
 <template>
-  <div class="mask-map" id="mapMap" ref="map"></div>
+  <div class="mask-map" id="mask-map" ref="map"></div>
 </template>
 
 <script setup>
@@ -8,11 +8,11 @@ import { ref, onMounted, computed, watch } from 'vue';
 import L from 'leaflet';
 
 const store = useStore();
-const map  = ref(null);
+const map  = ref({});
 const markers = ref([]);
 
 onMounted(() => {
-	map.value = L.map( map.value , {
+	map.value = L.map( 'mask-map' , {
 		center: [25.03, 121.55],
 		zoom: 14,
 	});
@@ -45,7 +45,7 @@ const addMarker = (item) => {
     shadowSize:   [40, 40],
     iconAnchor:   [22, 94],
     shadowAnchor: [10, 90], 
-    popupAnchor:  [-3, -76]
+    popupAnchor:  [-3, -90]
 	})
 
 	// 將標記放置地圖上
@@ -60,7 +60,6 @@ const addMarker = (item) => {
 	marker.lat = item.latitude
 
 	markers.value.push(marker)
-	console.log(markers.value);
 }
 
 // 清除地圖標記
@@ -77,11 +76,14 @@ const clearMarkers = () => {
 const triggerPopup = (markerId) => {
 	// 找出目標藥局
 	const marker = markers.value.find((i) => i.markerId === markerId);
-	console.log(marker);
 	// 地圖中心指向目標，開啟popup
 	map.value.flyTo(new L.LatLng(marker.lng, marker.lat), 15);
 	marker.openPopup();
 }
+
+defineExpose({
+	triggerPopup
+})
 </script>
 
 <style lang="scss">

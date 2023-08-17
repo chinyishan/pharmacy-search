@@ -71,8 +71,10 @@ import { useStore } from 'vuex'
 import { ref, computed, watch } from 'vue';
 
 const store = useStore();
+
 //定義emit跟props的變數
 const emit = defineEmits(['triggerMarkerPopup'])
+
 // const props = defineProps({
 // 		foo: String
 // })
@@ -141,8 +143,8 @@ const openInfoBox = (id) => {
 
 //
 const handleMarker = () => {
+	console.log(filteredStores.value);
 	filteredStores.value.forEach((i) => {
-		console.log(i.id);
 		emit("triggerMarkerPopup", i.id)
 	})
 }
