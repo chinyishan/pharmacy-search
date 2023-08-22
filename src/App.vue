@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!-- 左側欄 -->
-    <asideMenu @triggerMarkerPopup="openPopup" ref="menu"/>
+    <asideMenu @triggerMarkerPopup="openPopup" ref="menu" @onactive="isActive"/>
     <!-- 地圖區塊 -->
-    <maskMap ref="map"/>
+    <maskMap ref="map" :active="isActive"/>
     <!-- 燈箱 -->
     <lightBox/>
   </div>
@@ -52,6 +52,11 @@ const currDistrict = computed( {
     store.commit('SET_CURR_DISTRICT', value)
   }
 })
+const onactive  = ref(false)
+const isActive = computed((onactive) => {
+  return onactive
+})
+console.log(onactive);
 
 </script>
 

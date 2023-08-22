@@ -1,10 +1,16 @@
 <template>
-  <div class="mask-map" id="mask-map" ref="map"></div>
+  <div 
+		class="mask-map" 
+		id="mask-map" 
+		ref="map" 
+		:class="{ active: isActive }" 
+		:active="isActive"
+	></div>
 </template>
 
 <script setup>
 import { useStore } from 'vuex'
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, defineProps } from 'vue';
 import L from 'leaflet';
 
 const store = useStore();
@@ -84,6 +90,35 @@ const triggerPopup = (markerId) => {
 defineExpose({
 	triggerPopup
 })
+
+
+//選單開關
+
+const props = defineProps({
+	active: {
+		type: Boolean,
+    default: false,
+	}
+})
+
+const isActive = computed({
+	get: () => {
+		console.log(props);
+    return props.active
+  },
+  set: (value) => {
+		if (!value) {
+			console.log(value);
+			emit('active', value)
+		}
+  }
+})
+
+// const isActive = computed(() => {
+// 	console.log(props);
+// 	return props.active
+// })
+
 </script>
 
 <style lang="scss">
@@ -95,6 +130,13 @@ defineExpose({
     height: 100%;
     background-color: #aaa;
     z-index: 5;
+		transition: all .5s ease-out;
+
+		&.active {
+			left: 0%;
+			width: 100%;
+			transition: all .5s ease-out;
+		}
 
     &.full {
       width: 100%;

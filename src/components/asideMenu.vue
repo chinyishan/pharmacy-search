@@ -68,12 +68,12 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, defineEmits } from 'vue';
 
 const store = useStore();
 
 //定義emit跟props的變數
-const emit = defineEmits(['triggerMarkerPopup'])
+const emit = defineEmits(['onactive'])
 
 // const props = defineProps({
 // 		foo: String
@@ -149,10 +149,15 @@ const handleMarker = () => {
 	})
 }
 
+
 //選單開關
 const isActive = ref(false);
 const toggleMenu = () => {
 	isActive.value = !isActive.value;
+
+	console.log(isActive.value);
+
+	emit("onactive", isActive.value)
 };
 </script>
 
