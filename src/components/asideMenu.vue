@@ -154,10 +154,7 @@ const handleMarker = () => {
 const isActive = ref(false);
 const toggleMenu = () => {
 	isActive.value = !isActive.value;
-
-	console.log(isActive.value);
-
-	emit("onactive", isActive.value)
+	emit("setShow", isActive.value)
 };
 </script>
 

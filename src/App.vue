@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 左側欄 -->
-    <asideMenu @triggerMarkerPopup="openPopup" ref="menu" @onactive="isActive"/>
+    <asideMenu @triggerMarkerPopup="openPopup" ref="menu" @setShow="setIsActive"/>
     <!-- 地圖區塊 -->
     <maskMap ref="map" :active="isActive"/>
     <!-- 燈箱 -->
@@ -52,11 +52,12 @@ const currDistrict = computed( {
     store.commit('SET_CURR_DISTRICT', value)
   }
 })
-const onactive  = ref(false)
-const isActive = computed((onactive) => {
-  return onactive
-})
-console.log(onactive);
+
+//接收 aside 的 isActive 資料，再傳入 map
+const isActive  = ref(false)
+const setIsActive = () => {
+  isActive.value = !isActive.value
+}
 
 </script>
 

@@ -2,8 +2,8 @@
   <div 
 		class="mask-map" 
 		id="mask-map" 
-		ref="map" 
 		:class="{ active: isActive }" 
+		ref="map" 
 		:active="isActive"
 	></div>
 </template>
@@ -91,56 +91,27 @@ defineExpose({
 	triggerPopup
 })
 
-
 //選單開關
-
 const props = defineProps({
 	active: {
 		type: Boolean,
     default: false,
 	}
 })
-
-const isActive = computed({
-	get: () => {
-		console.log(props);
-    return props.active
-  },
-  set: (value) => {
-		if (!value) {
-			console.log(value);
-			emit('active', value)
-		}
-  }
+const isActive = computed(() => {
+	return props.active
 })
-
-// const isActive = computed(() => {
-// 	console.log(props);
-// 	return props.active
-// })
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mask-map {
 	position: relative;
+		width: 100%;
+		height: 100%;
     top: 0;
-    right: -25%;
-    width: 75%;
-    height: 100%;
+    right: 0%;
     background-color: #aaa;
     z-index: 5;
-		transition: all .5s ease-out;
-
-		&.active {
-			left: 0%;
-			width: 100%;
-			transition: all .5s ease-out;
-		}
-
-    &.full {
-      width: 100%;
-			right: 0%;
-    }
 }
 </style>
