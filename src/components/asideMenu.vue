@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<ul class="store-lists">
-				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id" @click="handleMarker">
+				<li class="store-info wraps" v-for="item in filteredStores" :key="item.id" @click="handleMarker(item.id)">
 					{{ item.id }}
 					<h2 v-html="keywordsHighlight(item.name)"></h2>
 					<div class="mask-info">
@@ -72,8 +72,8 @@ import { ref, computed, watch, defineEmits } from 'vue';
 
 const store = useStore();
 
-//定義emit跟props的變數
-const emit = defineEmits(['onactive'])
+// 定義emit跟props的變數
+// const emits = defineEmits(['triggerMarkerPopup']);
 
 // const props = defineProps({
 // 		foo: String
@@ -141,14 +141,14 @@ const openInfoBox = (id) => {
 	infoBoxSid.value = id
 }
 
-//
-const handleMarker = () => {
-	console.log(filteredStores.value);
-	filteredStores.value.forEach((i) => {
-		emit("triggerMarkerPopup", i.id)
-	})
-}
+//定義emit跟props的變數
+const emits = defineEmits(['triggerMarkerPopup']);
 
+//emit 觸發事件
+const handleMarker = (id) => {
+	console.log(id);
+	emits("triggerMarkerPopup", id)
+}
 
 //選單開關
 const isActive = ref(false);
@@ -156,6 +156,7 @@ const toggleMenu = () => {
 	isActive.value = !isActive.value;
 	emit("setShow", isActive.value)
 };
+
 </script>
 
 <style lang="scss" scoped>

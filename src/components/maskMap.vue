@@ -1,16 +1,10 @@
 <template>
-  <div 
-		class="mask-map" 
-		id="mask-map" 
-		:class="{ active: isActive }" 
-		ref="map" 
-		:active="isActive"
-	></div>
+  <div class="mask-map" id="mask-map"></div>
 </template>
 
 <script setup>
 import { useStore } from 'vuex'
-import { ref, onMounted, computed, watch, defineProps } from 'vue';
+import { ref, onMounted, computed, watch, defineExpose, defineProps } from 'vue';
 import L from 'leaflet';
 
 const store = useStore();
@@ -72,11 +66,21 @@ const addMarker = (item) => {
 const clearMarkers = () => {
 	map.value.eachLayer((layer) => {
 		if(layer instanceof L.Marker) {
+			console.log(map.value);
 			map.value.removeLayer(layer)
 		}
 	})
+	//清空陣列
 	markers.value.length = 0
 }
+
+onMounted(() => {
+  console.log(map.value);
+});
+
+// const props = defineProps({
+// 	triggerPopup: Function
+// })
 
 // null 沒有使用到 triggerPopup
 const triggerPopup = (markerId) => {
@@ -89,17 +93,6 @@ const triggerPopup = (markerId) => {
 
 defineExpose({
 	triggerPopup
-})
-
-//選單開關
-const props = defineProps({
-	active: {
-		type: Boolean,
-    default: false,
-	}
-})
-const isActive = computed(() => {
-	return props.active
 })
 
 </script>

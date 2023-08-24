@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!-- 左側欄 -->
-    <asideMenu @triggerMarkerPopup="openPopup" ref="menu" @setShow="setIsActive"/>
+    <asideMenu @triggerMarkerPopup="openPopup" ref="menu"/>
     <!-- 地圖區塊 -->
-    <maskMap ref="map" :active="isActive"/>
+    <maskMap ref="map"/>
     <!-- 燈箱 -->
     <lightBox/>
   </div>
@@ -28,6 +28,9 @@ onMounted( async () => {
 })
 
 const map = ref(null);
+onMounted(() => {
+  console.log(map.value);
+});
 
 //錯誤，triggerPopup無法傳遞
 const openPopup = (id) => {
@@ -52,12 +55,6 @@ const currDistrict = computed( {
     store.commit('SET_CURR_DISTRICT', value)
   }
 })
-
-//接收 aside 的 isActive 資料，再傳入 map
-const isActive  = ref(false)
-const setIsActive = () => {
-  isActive.value = !isActive.value
-}
 
 </script>
 
