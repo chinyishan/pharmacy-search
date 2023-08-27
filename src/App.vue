@@ -28,13 +28,11 @@ onMounted( async () => {
 })
 
 const map = ref(null);
-onMounted(() => {
-  console.log(map.value);
-});
+
 
 //錯誤，triggerPopup無法傳遞
 const openPopup = (id) => {
-  console.log(map.value.triggerPopup(id));
+  // console.log(map.value.triggerPopup(id));
   map.value.triggerPopup(id);
 }
 

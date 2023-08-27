@@ -66,18 +66,12 @@ const addMarker = (item) => {
 const clearMarkers = () => {
 	map.value.eachLayer((layer) => {
 		if(layer instanceof L.Marker) {
-			console.log(map.value);
 			map.value.removeLayer(layer)
 		}
 	})
 	//清空陣列
 	markers.value.length = 0
 }
-
-onMounted(() => {
-  console.log(map.value);
-});
-
 // const props = defineProps({
 // 	triggerPopup: Function
 // })
