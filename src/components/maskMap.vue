@@ -13,8 +13,10 @@ import {
   defineProps,
 } from "vue";
 import L from "leaflet";
-import iconUrlImg from "@/assets/images/geo-alt-fill-2.png";
-import shadowUrlImg from "@/assets/images/geo-shadow.png";
+// import iconUrlImg from "../assets/images/geo-alt-fill-2.png";
+// import shadowUrlImg from "../assets/images/geo-shadow.png";
+// import iconUrlImg from "@/assets/images/geo-alt-fill-2.png";
+// import shadowUrlImg from "@/assets/images/geo-shadow.png";
 
 const store = useStore();
 const map = ref({});
@@ -48,18 +50,21 @@ watch(filteredStores, (stores) => {
 
 const addMarker = (item) => {
   // 標記圖示
-  const ICON = L.icon({
-    iconUrl: iconUrlImg,
-    shadowUrl: shadowUrlImg,
-    iconSize: [40, 40],
-    shadowSize: [40, 40],
-    iconAnchor: [22, 94],
-    shadowAnchor: [10, 90],
-    popupAnchor: [-3, -90],
-  });
+  // const ICON = L.icon({
+  //   // iconUrl: iconUrlImg,
+  //   // shadowUrl: shadowUrlImg,
+  //   // iconUrl: "/assets/images/geo-shadow.png",
+  //   // shadowUrl: "/assets/images/geo-shadow.png",
+  //   iconSize: [40, 40],
+  //   shadowSize: [40, 40],
+  //   iconAnchor: [22, 94],
+  //   shadowAnchor: [10, 90],
+  //   popupAnchor: [-3, -90],
+  // });
 
+  // , { icon: ICON }
   // 將標記放置地圖上
-  const marker = L.marker([item.longitude, item.latitude], { icon: ICON })
+  const marker = L.marker([item.longitude, item.latitude])
     .addTo(map.value)
     .bindPopup(`<h2 class="popup-name">${item.name}</h2>`)
     .openPopup();
