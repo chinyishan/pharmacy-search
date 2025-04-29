@@ -1,16 +1,12 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue()
-  ],
+  plugins: [vue()],
+  base: "/pharmacy-search/",
   // vite IP 配置
   server: {
-    host: '0.0.0.0'
-    }
-})
-
-
-
+    host: "0.0.0.0",
+  },
+});
