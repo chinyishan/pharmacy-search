@@ -1,5 +1,8 @@
 # 【Side Project】全台藥局口罩地圖查詢
 
+![pharmacy](https://github.com/user-attachments/assets/976281db-1491-4da1-967c-d530c101165f)
+
+
 ## 專案簡介
 
 本專案旨在練習前端框架整合地圖應用，並實作實際資料渲染與互動操作功能。
