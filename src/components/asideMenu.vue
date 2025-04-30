@@ -3,20 +3,7 @@
     <div class="aside_menu">
       <div class="content_search">
         <div class="title_pharmacy">
-          <h1>
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="#ffffff"
-                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6a3 3 0 0 1 0 6z"
-              />
-            </svg>
-            口罩藥局查詢
-          </h1>
+          <h1>口罩藥局查詢</h1>
         </div>
         <div class="wraps wrap_select">
           <div class="sel">
@@ -35,12 +22,6 @@
           </div>
         </div>
         <div class="wraps wrap_keywords">
-          <!-- <label>
-						<svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-							<path fill="#4d4d4d" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"/>
-						</svg>
-						關鍵字搜尋
-					</label> -->
           <input
             type="text"
             placeholder="請輸入關鍵字搜尋"
@@ -56,7 +37,7 @@
             :key="item.id"
             @click="handleMarker(item.id)"
           >
-            <h2 v-html="keywordsHighlight(item.name)"></h2>
+            <h2 class="store_name" v-html="keywordsHighlight(item.name)"></h2>
             <div class="mask_info">
               <div class="info">
                 <svg
@@ -136,13 +117,6 @@ import { ref, computed, watch, defineEmits } from "vue";
 
 const store = useStore();
 
-// 定義emit跟props的變數
-// const emits = defineEmits(['triggerMarkerPopup']);
-
-// const props = defineProps({
-// 		foo: String
-// })
-
 // 選擇縣市區域
 const currCity = computed({
   get: () => {
@@ -152,6 +126,7 @@ const currCity = computed({
     store.commit("SET_CURR_CITY", value);
   },
 });
+
 const currDistrict = computed({
   get: () => {
     return store.state.currDistrict;
@@ -160,8 +135,10 @@ const currDistrict = computed({
     store.commit("SET_CURR_DISTRICT", value);
   },
 });
+
 const cityList = computed(() => store.getters.cityList);
 const districtList = computed(() => store.getters.districtList);
+
 watch(districtList, (v) => {
   const [arr] = v;
   currDistrict.value = arr.name;
@@ -179,6 +156,8 @@ const keywords = computed({
     store.commit("SET_KEYWORDS", value);
   },
 });
+
+/** 關鍵字高光 */
 const keywordsHighlight = (val) => {
   return val.replace(
     new RegExp(keywords.value, "g"),
@@ -195,6 +174,7 @@ const showModal = computed({
     store.commit("SET_SHOW_MODAL", value);
   },
 });
+
 const infoBoxSid = computed({
   get: () => {
     return store.state.infoBoxSid;
@@ -203,6 +183,7 @@ const infoBoxSid = computed({
     store.commit("SET_INFO_BOX_SID", value);
   },
 });
+
 const openInfoBox = (id) => {
   showModal.value = true;
   infoBoxSid.value = id;
@@ -243,9 +224,11 @@ const toggleMenu = () => {
   .aside_menu {
     box-shadow: 5px 0 5px rgb(50, 50, 50, 0.5);
     height: 100%;
+
     .content_search {
       border-bottom: 1px solid #aaa;
       background-color: #1f8bde;
+
       .title_pharmacy {
         padding: 14px;
         font-size: 22px;
@@ -255,12 +238,13 @@ const toggleMenu = () => {
       }
       .wraps {
         padding: 14px;
-        // background: #fff;
+
         &.wrap_select {
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
+
           .sel {
             display: flex;
             justify-content: space-between;
@@ -286,7 +270,6 @@ const toggleMenu = () => {
           padding: 6px;
           border-radius: 5px;
           border: 1px solid #cccccc;
-          // appearance: none;
           display: inline-block;
           width: 70%;
         }
@@ -304,6 +287,7 @@ const toggleMenu = () => {
     .content_store {
       height: calc(100% - 170px);
       overflow-y: scroll;
+
       .store_lists {
         .store_info {
           position: relative;
@@ -396,6 +380,130 @@ const toggleMenu = () => {
     background-color: #fff;
     box-shadow: 5px 0 5px rgb(50, 50, 50, 0.5);
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container_aside {
+    width: 100%;
+    height: 280px;
+    background: #fff;
+
+    &.active {
+      left: 0%;
+      top: -287px;
+    }
+
+    .aside_menu {
+      .content_search {
+        .title_pharmacy {
+          padding: 10px;
+          font-size: 18px;
+        }
+        .wraps {
+          padding: 8px;
+
+          &.wrap_select {
+            .sel {
+              label {
+                font-size: 16px;
+              }
+            }
+          }
+          &.wrap_keywords {
+            padding-top: 0px;
+            padding-bottom: 16px;
+          }
+          select {
+            font-size: 12px;
+            padding: 4px;
+            width: 70%;
+          }
+          input {
+            padding: 4px;
+            font-size: 12px;
+          }
+        }
+      }
+      .content_store {
+        height: 100%;
+        height: 163px;
+        background: #fff;
+        overflow-x: scroll;
+
+        .store_lists {
+          display: flex;
+          justify-content: flex-start;
+          width: 100vw;
+
+          .store_info {
+            display: block;
+            padding: 10px;
+            font-size: 12px;
+            border-bottom: 0px solid #aaa;
+            border-right: 1px solid #aaa;
+            width: 260px;
+            min-width: 260px;
+
+            h2 {
+              font-size: 16px;
+              margin-bottom: 18px;
+            }
+            .mask_info {
+              font-size: 12px;
+
+              .info {
+                margin-right: 12px;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                svg {
+                  width: 12px;
+                  height: 12px;
+                  margin-right: 2px;
+                }
+              }
+            }
+            .mask_update {
+              margin-bottom: 10px;
+              font-size: 12px;
+              color: #686868;
+            }
+            &:hover {
+              background-color: #f4f4f4;
+            }
+            .btn_detail {
+              display: flex;
+              justify-content: flex-end;
+
+              button {
+                font-size: 12px;
+                padding: 4px 6px;
+
+                svg {
+                  width: 12px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .btn_show {
+      position: absolute;
+      top: 260px;
+      left: 50%;
+      transform: rotate(90deg);
+      padding: 30px 5px;
+      display: block;
+      border-radius: 0 5px 5px 0;
+      background-color: #fff;
+      box-shadow: 5px 0 5px rgb(50, 50, 50, 0.5);
+      cursor: pointer;
+    }
   }
 }
 </style>
